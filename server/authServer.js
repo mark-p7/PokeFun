@@ -158,7 +158,7 @@ app.post('/login', asyncWrapper(async (req, res) => {
 app.post('/logout', asyncWrapper(async (req, res) => {
     if (req.headers["auth-token"] || req.body["auth-token"] || req.query.token) {
         const token = req.headers["auth-token"] || req.body["auth-token"] || req.query.token;
-        const user = await Pokemon.findOne({ token: { $all: [token] } })
+        const user = await PokemonUserModel.findOne({ token: { $all: [token] } })
         if (!user) throw new PokemonBadRequestError("User does not exist or User is already logged out!")
         user.token = []
         await user.save();
