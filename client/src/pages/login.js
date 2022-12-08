@@ -20,14 +20,12 @@ function Login() {
                     <TextField label="Username" variant="outlined" onChange={(e) => setUsername(e.target.value)} />
                     <TextField label="Password" type="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} />
                     <Button variant="contained" onClick={async () => {
-                        await axios.post('http://localhost:8081/login', {
+                        await axios.post('http://164.92.122.241:8081/login', {
                             username: username,
                             password: password,
                         })
                             .then(res => {
                                 console.log(res);
-                                localStorage.setItem('username', username);
-                                localStorage.setItem('password', password);
                                 console.log(res.data)
                                 if (res.data.role == 'admin') {
                                     localStorage.setItem('admin-token', res.data.token);

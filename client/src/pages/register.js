@@ -7,6 +7,7 @@ export default function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [adminKey, setAdminKey] = useState("");
     const navigate = useNavigate();
 
     return (
@@ -18,8 +19,9 @@ export default function Register() {
                 <TextField label="Username" variant="outlined" onChange={(e) => setUsername(e.target.value)} />
                 <TextField label="Password" type="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} />
                 <TextField label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)} />
+                <TextField label="Admin Key *(needed for admin registration)" variant="outlined" onChange={(e) => setAdminKey(e.target.value)} />
                 <Button variant="contained" onClick={async () => {
-                    await axios.post('http://localhost:8081/register/admin', {
+                    await axios.post('http://164.92.122.241:8081/register/admin', { headers: { "admin-key": adminKey} },{
                         username: username,
                         password: password,
                         email: email
@@ -29,9 +31,9 @@ export default function Register() {
                     }).catch((err) => {
                         console.log(err);
                     })
-                }}>Register Admin</Button>
+                }}>Register Admin Account</Button>
                 <Button variant="contained" onClick={async () => {
-                    await axios.post('http://localhost:8081/register', {
+                    await axios.post('http://164.92.122.241:8081/register', {
                         username: username,
                         password: password,
                         email: email

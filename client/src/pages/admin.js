@@ -48,7 +48,7 @@ function Admin() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get(`http://localhost:8080/api/v1/pokeRequests?token=${localStorage.getItem('token')}`, {
+      const res = await axios.get(`http://164.92.122.241:8080/api/v1/pokeRequests?token=${localStorage.getItem('token')}`, {
         token: localStorage.getItem('token')
       })
       setCalls(res.data.sort((a, b) => new Date(b.date) - new Date(a.date)));
