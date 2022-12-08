@@ -14,7 +14,7 @@ function Logout() {
             <Stack spacing={2} direction="column">
                 <Button variant="contained" onClick={async () => {
                     if (localStorage.getItem('token')) {
-                        await axios.post('http://164.92.122.241:8081/logout', {
+                        await axios.post('https://164.92.122.241:8081/logout', {
                             "auth-token": localStorage.getItem('auth-token'),
                         })
                             .then(res => {

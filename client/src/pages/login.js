@@ -20,7 +20,7 @@ function Login() {
                     <TextField label="Username" variant="outlined" onChange={(e) => setUsername(e.target.value)} />
                     <TextField label="Password" type="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} />
                     <Button variant="contained" onClick={async () => {
-                        await axios.post('http://164.92.122.241:8081/login', {
+                        await axios.post('https://164.92.122.241:8081/login', {
                             username: username,
                             password: password,
                         })

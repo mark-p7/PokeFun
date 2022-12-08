@@ -69,7 +69,7 @@ function App() {
     useEffect(() => {
         var authToken = localStorage.getItem('token')
         if (authToken) {
-            fetch(`http://164.92.122.241:8080/api/v1/pokemons?token=${authToken}`)
+            fetch(`https://164.92.122.241:8080/api/v1/pokemons?token=${authToken}/`)
                 .then(res => res.json())
                 .then(pokemon => { setPokemon(pokemon) });
         }
