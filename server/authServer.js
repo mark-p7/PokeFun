@@ -156,30 +156,16 @@ app.post('/login', asyncWrapper(async (req, res) => {
 
 // Logout
 app.post('/logout', asyncWrapper(async (req, res) => {
-
-    // Get Request body
-    const { username, password } = req.body;
-
-    // Validate User input
-    if (!(username && password)) throw new PokemonBadRequestError("All inputs are required")
-
-    // Find User
-    const user = await PokemonUserModel.findOne({ username })
-    if (user && (await bcrypt.compare(password, user.password))) {
-
-        if (user.token.length == 0) {
-            res.json({ username: user.username, message: "User is already logged out" })
-            return;
-        }
-        user.token = [];
+    if (req.headers["auth-token"] || req.body["auth-token"] || req.query.token) {
+        const token = req.headers["auth-token"] || req.body["auth-token"] || req.query.token;
+        const user = await Pokemon.findOne({ token: { $all: [token] } })
+        if (!user) throw new PokemonBadRequestError("User does not exist or User is already logged out!")
+        user.token = []
         await user.save();
-
-        // Send response back to client
-        res.json({ username: user.username, message: "Logged out successfully" })
-
-        // Throw Errors if User does not exist or password is incorrect
-    } else if (!user) throw new PokemonBadRequestError("User does not exist")
-    else throw new PokemonBadRequestError("Incorrect Password")
+        res.json({ message: "User logged out successfully" })
+    } else {
+        res.json({ message: "No Auth token provided" })
+    }
 }))
 
 // Catch all other routes
