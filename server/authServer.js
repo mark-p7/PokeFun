@@ -70,7 +70,7 @@ app.use(asyncWrapper(async (req, res, next) => {
 
 // Registration for Admin users
 app.post('/register/admin', asyncWrapper(async (req, res) => {
-
+    if (!req.headers["admin-key"]) throw new PokemonBadRequestError("No Admin Key");
     if (req.headers["admin-key"] != process.env.ADMIN_KEY) throw new PokemonBadRequestError("Invalid Admin Key");
 
     // Obtaining body parameters
